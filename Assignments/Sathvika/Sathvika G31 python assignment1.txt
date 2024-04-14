@@ -1,0 +1,119 @@
+1)total no.of employees
+
+select count(*) from emp;
+
+2)total no.of departments
+
+select count(*) from dept;
+
+3)all the employees
+
+select ename from emp;
+
+4)all the departments
+
+select dname from dept;
+
+5)total salary paid for all employees
+
+select sum(sal) from emp;
+
+6)total commission paid to all employees
+
+select sum(comm) as total_commission_paid from emp;
+
+7)which job titles of employees get commission paid
+
+select job,comm from emp where comm is not null;
+
+8)system date
+
+select sysdate from dual;
+
+9)avg salary paid to all employees
+
+select avg(sal) from emp;
+
+10)how many employees are there in each dept
+
+select d.dname, count(*) from emp e full outer join dept d on e.deptno = d.deptno  group by d.dname;
+
+11)total sal of all employees in each dept
+
+select d.dname,sum(e.sal) from emp e full outer join dept d on e.deptno = d.deptno  group by d.dname;
+
+12)How many employees are there under each title
+
+select job,count(*)  from emp group by job;
+
+13)Avg sal paid for each job title
+
+select job,avg(sal) from emp group by job;
+
+14)hire day,month and year for each employee
+
+select ename,to_char(hiredate,'Day'),to_char(hiredate,'MM'),to_char(hiredate,'YYYY') from emp; 
+
+15) sort the employees dept wise
+
+select ename,dname from emp full outer join dept on emp.deptno=dept.deptno order by dname asc;
+
+16)sort the emp based on their job titles
+
+select ename,job from emp order by job asc;
+
+17)sort the emp based on descending order of their sal
+
+select ename,sal from emp order by sal desc;
+
+18)sort the emp ascending order of their dept and desc order of their sal
+
+select e.ename,d.dname,e.sal from emp e full outer join dept d on e.deptno=d.deptno order by d.dname,sal desc;
+
+19)how many employees have their name with 6 characters
+
+select count(ename) from emp where length(ename)=6;
+
+20)max and min sal paid
+
+select max(sal),min(sal) from emp;
+
+21)max,min,avg,sum of sal paid under each dept
+
+select dname,max(sal),min(sal),sum(sal),avg(sal) from emp e full outer join dept d on e.deptno=d.deptno group by d.dname;
+
+22)sort the emp based on their hire date
+
+select ename,hiredate from emp order by hiredate;
+
+23)Employee who joined last
+
+select ename from emp where hiredate = (select max(hiredate) from emp);
+
+24)who is the oldest employee based on their hiredate
+
+select ename from emp where hiredate = (select min(hiredate) from emp);
+
+25)sort the employee based on their hire year(desc) and dept(aesc)
+
+select e.ename,e.hiredate,d.dname from emp e full outer join dept d on e.deptno=d.deptno order by to_char(e.hiredate,'YYYY') desc,d.dname;
+
+26)emp who get salaries greater than or equal to avg sal of the emp
+
+select ename from emp where sal>= (select avg(sal) from emp);
+
+27)employees who get sal less than or equal to avg sal of emp
+
+select ename from emp where sal<= (select avg(sal) from emp);
+
+28)employees get sal b/w 2000 and 4000
+
+select ename from emp where sal between 2000 and 4000; /select ename,sal from emp where sal>=2000 and sal<=4000;
+
+29)which employees get highest and lowest sal
+
+select ename from emp where sal=(select max(sal) from emp) union select ename from emp where sal=(select min(sal) from emp);
+
+30)how many gifts need buy next month
+
+select count(*) from emp where to_char(hiredate, 'mm') = to_char(add_months(current_date, 1), 'mm');
