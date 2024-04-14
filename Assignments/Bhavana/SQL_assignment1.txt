@@ -149,4 +149,9 @@ where sal=(select min(sal) from emp);
 /*Q30*/
 select to_char(hiredate,'MON') as number_of_members_joined,count(*) as number_of_gifts
 from emp 
-group by  to_char(hiredate,'MON') order by count(*) 
+group by  to_char(hiredate,'MON') order by count(*);
+--or
+select to_char(hiredate,'MON'),count(*)
+from emp
+where to_char(hiredate,'MON')='MAY'
+    group by to_char(hiredate,'MON');
